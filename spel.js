@@ -20,7 +20,7 @@ async function movement() {
       Accept: "application/json",
       Authorization: "Bearer " + token,
     },
-    body: '{"x":0,"y":2}', //change the position here
+    body: '{"x":0,"y":1}', //change the position here
   };
 
   try {
@@ -32,7 +32,7 @@ async function movement() {
   }
 }
 
-movement();
+//movement();
 
 async function fight() {
   const url = server + "/my/" + character + "/action/fight";
@@ -76,7 +76,7 @@ async function gathering() {
   }
 }
 
-gathering();
+//gathering();
 
 async function rest() {
   const url = server + "/my/" + character + "/action/rest";
@@ -100,6 +100,32 @@ async function rest() {
 
 rest();
 
+async function startLoop() {
+  while (true) {
+    console.log("Starting fight sequence...");
+
+    // Första fight
+    await fight();
+    console.log("Waiting 59 seconds after first fight...");
+    await new Promise((resolve) => setTimeout(resolve, 59000)); // Vänta 59 sek
+
+    // Andra fight
+    await fight();
+    console.log("Waiting 59 seconds after second fight...");
+    await new Promise((resolve) => setTimeout(resolve, 61000)); // Vänta 59 sek
+
+    // Rest
+    await rest();
+    console.log("Waiting 13 seconds after rest...");
+    await new Promise((resolve) => setTimeout(resolve, 20000)); // Vänta 13 sek
+
+    console.log("Loop completed, restarting sequence...");
+  }
+}
+
+// Starta loopen
+//startLoop();
+
 async function craft() {
   const url = server + "/my/" + character + "/action/crafting";
   const options = {
@@ -110,18 +136,18 @@ async function craft() {
       Authorization: "Bearer " + token,
     },
     body: JSON.stringify({
-      code: "copper_dagger",
+      code: "wooden_staff",
       quantity: 1,
     }),
   };
 
   try {
     const response = await fetch(url, options);
-    const { data } = await response.json();
-    console.log(data);
+    const data = await response.json();
+    console.log("Crafting result:", data);
   } catch (error) {
-    console.log(error);
+    console.error("Error in crafting:", error);
   }
 }
 
-craft();
+//craft();
