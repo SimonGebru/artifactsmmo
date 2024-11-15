@@ -8,12 +8,20 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <section>
-      <button id="moveBtn">Move</button>
-      <button id="fightBtn">Fight</button>
-      <button id="gatherBtn">Gather</button>
-      <button id="restBtn">Rest</button>
-      <button id="craftBtn">Craft</button>
-    </section>
+    <div class="controller-container">
+      <img
+        src="controller-snes-svgrepo-com.svg"
+        alt="Kontroll"
+        class="controller"
+      />
+      <!-- Knappar placerade ovanpå SVG:n -->
+      <button id="moveBtn" class="move-button">M</button>
+      <button id="fightBtn" class="fight-button">F</button>
+      <button id="gatherBtn" class="gather-button">G</button>
+      <button id="restBtn" class="rest-button">R</button>
+      <button id="craftBtn" class="craft-button">C</button>
+      <button id="starLoopBtn" class="first-loop">1</button>
+      <button id="startLoopBtn" class="sec-loop">2</button>
+    </div>
   </body>
 </html>

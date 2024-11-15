@@ -2,21 +2,87 @@
   box-sizing: border-box;
   background-color: antiquewhite;
 }
+
 body {
-  width: 100vw;
-  height: 100vh;
-}
-section {
-  height: 50vh;
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  height: 100vh;
+  margin: 0;
 }
+
+.controller-container {
+  position: relative;
+  display: inline-block;
+}
+
+.controller {
+  height: 55rem;
+}
+
 button {
+  position: absolute;
   border: 2px solid black;
-  border-radius: 25px;
+
   color: white;
   background-color: black;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+.move-button {
+  top: 409px;
+  left: 286px;
+  width: 32px;
+  height: 32px;
+}
+
+.fight-button {
+  border-radius: 90%;
+  height: 30px;
+  width: 35px;
+  top: 418px;
+  left: 568px;
+}
+
+.gather-button {
+  border-radius: 90%;
+  height: 30px;
+  width: 35px;
+  top: 433px;
+  left: 522px;
+}
+
+.rest-button {
+  border-radius: 90%;
+  height: 30px;
+  width: 35px;
+  top: 479px;
+  left: 538px;
+}
+
+.craft-button {
+  border-radius: 90%;
+  height: 30px;
+  width: 35px;
+  top: 464px;
+  left: 583px;
+}
+
+.first-loop {
+  top: 439px;
+  left: 255px;
+  width: 32px;
+  height: 32px;
+}
+
+.sec-loop {
+  top: 439px;
+  left: 317px;
+  width: 32px;
+  height: 32px;
 }
