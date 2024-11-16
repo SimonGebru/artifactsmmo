@@ -185,12 +185,12 @@ async function startLoop() {
     // Första fight
     await fight();
     console.log("Waiting 59 seconds after first fight...");
-    await new Promise((resolve) => setTimeout(resolve, 59000)); // Vänta 59 sek
+    await new Promise((resolve) => setTimeout(resolve, 30000)); // Vänta 59 sek
 
     // Andra fight
     await fight();
     console.log("Waiting 61 seconds after second fight...");
-    await new Promise((resolve) => setTimeout(resolve, 61000)); // Vänta 61 sek
+    await new Promise((resolve) => setTimeout(resolve, 30000)); // Vänta 61 sek
 
     // Rest
     await rest();
