@@ -22,10 +22,8 @@ body {
 
 button {
   position: absolute;
-  border: 2px solid black;
-
+  border: 3px solid black;
   color: white;
-  background-color: black;
   padding: 5px 10px;
   font-size: 0.8rem;
 }
@@ -34,55 +32,87 @@ button:hover {
   transform: scale(1.1);
 }
 
-.move-button {
-  top: 409px;
-  left: 286px;
-  width: 32px;
-  height: 32px;
-}
-
 .fight-button {
+  background-color: blue;
   border-radius: 90%;
-  height: 30px;
+  height: 34px;
   width: 35px;
-  top: 418px;
+  top: 416px;
   left: 568px;
 }
 
 .gather-button {
+  background-color: green;
   border-radius: 90%;
-  height: 30px;
+  height: 34px;
   width: 35px;
-  top: 433px;
+  top: 431px;
   left: 522px;
 }
 
 .rest-button {
+  background-color: rgb(251, 251, 67);
   border-radius: 90%;
-  height: 30px;
+  height: 34px;
   width: 35px;
-  top: 479px;
-  left: 538px;
+  top: 477px;
+  left: 537px;
+  color: green;
 }
 
 .craft-button {
+  background-color: red;
   border-radius: 90%;
-  height: 30px;
+  height: 34px;
   width: 35px;
-  top: 464px;
+  top: 461px;
   left: 583px;
 }
 
 .first-loop {
-  top: 439px;
-  left: 255px;
-  width: 32px;
-  height: 32px;
+  background-color: rgb(99, 98, 98);
+  top: 451px;
+  left: 376px;
+  width: 58px;
+  height: 47px;
 }
 
 .sec-loop {
+  background-color: rgb(99, 98, 98);
+  top: 451px;
+  left: 438px;
+  width: 58px;
+  height: 47px;
+}
+
+.up-button {
+  background-color: rgb(99, 98, 98);
+  top: 408px;
+  left: 286px;
+  width: 33px;
+  height: 33px;
+}
+
+.down-button {
+  background-color: rgb(99, 98, 98);
+  top: 470px;
+  left: 286px;
+  width: 33px;
+  height: 33px;
+}
+
+.left-button {
+  background-color: rgb(99, 98, 98);
   top: 439px;
-  left: 317px;
-  width: 32px;
-  height: 32px;
+  left: 255px;
+  width: 33px;
+  height: 33px;
+}
+
+.right-button {
+  background-color: rgb(99, 98, 98);
+  top: 439px;
+  left: 318px;
+  width: 33px;
+  height: 33px;
 }
