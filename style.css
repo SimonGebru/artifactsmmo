@@ -116,3 +116,19 @@ button:hover {
   width: 33px;
   height: 33px;
 }
+
+.chicken-button {
+  background-color: rgb(99, 98, 98);
+  width: 45px;
+  height: 32px;
+  top: 413px;
+  left: 390px;
+  text-align: center;
+}
+.mining-button {
+  background-color: rgb(99, 98, 98);
+  width: 45px;
+  height: 32px;
+  top: 413px;
+  left: 435px;
+}
