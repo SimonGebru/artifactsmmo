@@ -226,7 +226,7 @@ async function movechick() {
   }
   }
   
-movechick();
+//movechick();
 
 async function movemin() {
       
@@ -250,4 +250,4 @@ async function movemin() {
   }
   }
   
-movemin();
+//movemin();
