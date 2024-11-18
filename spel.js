@@ -17,11 +17,11 @@ document.getElementById("startLoopBtn").addEventListener("click", toggleStartLoo
 document.getElementById("chickBtn").addEventListener("click", movechick);
 document.getElementById("minBtn").addEventListener("click", movemin);
 
-let starLoopRunning = false; // Flagga för starLoop
-let startLoopRunning = false; // Flagga för startLoop
+let starLoopRunning = false; 
+let startLoopRunning = false; 
 
-let currentX = 0; // Startkoordinat för x
-let currentY = 0; // Startkoordinat för y
+let currentX = 0; 
+let currentY = 0; 
 
 async function movement(deltaX, deltaY) {
   // Uppdatera koordinaterna

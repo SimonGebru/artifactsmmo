@@ -132,3 +132,23 @@ button:hover {
   top: 413px;
   left: 435px;
 }
+
+.info-box {
+  position: absolute;
+  top: 117px;
+  left: 382px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  width: 200px;
+  height: 150px;
+}
+
+.info-box p {
+  margin: 5px 0;
+  color: grey;
+  height: 35px;
+}
