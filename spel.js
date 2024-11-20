@@ -16,6 +16,8 @@ document.getElementById("starLoopBtn").addEventListener("click", toggleStarLoop)
 document.getElementById("startLoopBtn").addEventListener("click", toggleStartLoop);
 document.getElementById("chickBtn").addEventListener("click", movechick);
 document.getElementById("minBtn").addEventListener("click", movemin);
+document.getElementById("woodBtn").addEventListener("click", movewoodcut);
+document.getElementById("storeBtn").addEventListener("click", movestore);
 
 let starLoopRunning = false; // Flagga för starLoop
 let startLoopRunning = false; // Flagga för startLoop
@@ -111,6 +113,12 @@ async function movement(deltaX, deltaY) {
     const response = await fetch(url, options);
     const { data } = await response.json();
     console.log("Movement result:", data);
+
+    if (data.cooldown && data.cooldown.remaining_seconds) {
+      startCooldown(data.cooldown.remaining_seconds); // Använd remaining_seconds för nedräkning
+    } else {
+      console.warn("No cooldown information found in response.");
+    }
     
     /*currentX = data.x
     currentY = data.y*/
@@ -139,6 +147,11 @@ async function fight() {
     const response = await fetch(url, options);
     const data = await response.json();
     console.log(data);
+    if (data.data.cooldown && data.data.cooldown.remaining_seconds) {
+      startCooldown(data.data.cooldown.remaining_seconds); // Använd remaining_seconds för nedräkning
+    } else {
+      console.warn("No cooldown information found in response.");
+    }
   } catch (error) {
     console.log(error);
   }
@@ -197,6 +210,12 @@ async function rest() {
     const { data } = await response.json();
     console.log(data);
 
+    if (data.cooldown && data.cooldown.remaining_seconds) {
+      startCooldown(data.cooldown.remaining_seconds); // Använd remaining_seconds för nedräkning
+    } else {
+      console.warn("No cooldown information found in response.");
+    }
+
     /*currentX = data.x
     currentY = data.y
 
@@ -227,6 +246,12 @@ async function craft() {
     const response = await fetch(url, options);
     const data = await response.json();
     console.log("Crafting result:", data);
+
+    if (data.cooldown && data.cooldown.remaining_seconds) {
+      startCooldown(data.cooldown.remaining_seconds); // Använd remaining_seconds för nedräkning
+    } else {
+      console.warn("No cooldown information found in response.");
+    }
 
     /*currentX = data.x
     currentY = data.y
@@ -266,7 +291,7 @@ async function starLoop() {
     // Gather
     await gathering();
     console.log("Waiting 34 seconds after gathering...");
-    await new Promise((resolve) => setTimeout(resolve, 34000)); // Vänta 34 sek
+    await new Promise((resolve) => setTimeout(resolve, 30000)); // Vänta 34 sek
 
     console.log("Star Loop completed, restarting sequence...");
   }
@@ -280,18 +305,18 @@ async function startLoop() {
 
     // Första fight
     await fight();
-    console.log("Waiting 59 seconds after first fight...");
-    await new Promise((resolve) => setTimeout(resolve, 30000)); // Vänta 59 sek
+    console.log("Waiting 31 seconds after first fight...");
+    await new Promise((resolve) => setTimeout(resolve, 31000)); // Vänta 59 sek
 
     // Andra fight
-    await fight();
+   /* await fight();
     console.log("Waiting 61 seconds after second fight...");
-    await new Promise((resolve) => setTimeout(resolve, 30000)); // Vänta 61 sek
+    await new Promise((resolve) => setTimeout(resolve, 30000)); */// Vänta 61 sek
 
     // Rest
     await rest();
-    console.log("Waiting 20 seconds after rest...");
-    await new Promise((resolve) => setTimeout(resolve, 20000)); // Vänta 20 sek
+    console.log("Waiting 31 seconds after rest...");
+    await new Promise((resolve) => setTimeout(resolve, 30000)); // Vänta 20 sek
 
     console.log("Start Loop completed, restarting sequence...");
   }
@@ -314,6 +339,12 @@ async function movechick() {
     const response = await fetch(url, options);
     const { data } = await response.json();
     console.log(data);
+
+    if (data.cooldown && data.cooldown.remaining_seconds) {
+      startCooldown(data.cooldown.remaining_seconds); // Använd remaining_seconds för nedräkning
+    } else {
+      console.warn("No cooldown information found in response.");
+    }
 
     currentX = data.character.x
     currentY = data.character.y
@@ -343,6 +374,12 @@ async function movemin() {
     const { data } = await response.json();
     console.log(data);
 
+    if (data.cooldown && data.cooldown.remaining_seconds) {
+      startCooldown(data.cooldown.remaining_seconds); // Använd remaining_seconds för nedräkning
+    } else {
+      console.warn("No cooldown information found in response.");
+    }
+
     currentX = data.character.x
     currentY = data.character.y
 
@@ -353,3 +390,108 @@ async function movemin() {
   }
   
 //movemin();
+
+async function movewoodcut() {
+      
+  const url = server + '/my/' + character +'/action/move';
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+    body: '{"x":-2,"y":-3}' //change the position here
+  };
+  
+  try {
+    const response = await fetch(url, options);
+    const { data } = await response.json();
+    console.log(data);
+
+    if (data.cooldown && data.cooldown.remaining_seconds) {
+      startCooldown(data.cooldown.remaining_seconds); // Använd remaining_seconds för nedräkning
+    } else {
+      console.warn("No cooldown information found in response.");
+    }
+
+    currentX = data.character.x
+    currentY = data.character.y
+
+    updateInfoBox();
+  } catch (error) {
+    console.log(error);
+  }
+  }
+
+  //movewoodcut()
+
+  async function movestore() {
+      
+    const url = server + '/my/' + character +'/action/move';
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + token
+      },
+      body: '{"x":2,"y":1}' //change the position here
+    };
+    
+    try {
+      const response = await fetch(url, options);
+      const { data } = await response.json();
+      console.log(data);
+  
+      if (data.cooldown && data.cooldown.remaining_seconds) {
+        startCooldown(data.cooldown.remaining_seconds); // Använd remaining_seconds för nedräkning
+      } else {
+        console.warn("No cooldown information found in response.");
+      }
+  
+      currentX = data.character.x
+      currentY = data.character.y
+  
+      updateInfoBox();
+    } catch (error) {
+      console.log(error);
+    }
+    }
+
+    //movestore
+
+async function dep() {
+  const url = server + "/my/" + character + "/action/bank/deposit";
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify({
+      code: "emerald_stone",
+      quantity: 1,
+    }),
+  };
+
+  try {
+    const response = await fetch(url, options);
+    const data = await response.json();
+    console.log("Crafting result:", data);
+
+    if (data.cooldown && data.cooldown.remaining_seconds) {
+      startCooldown(data.cooldown.remaining_seconds); // Använd remaining_seconds för nedräkning
+    } else {
+      console.warn("No cooldown information found in response.");
+    }
+
+    /*currentX = data.x
+    currentY = data.y
+
+    updateInfoBox();*/
+  } catch (error) {
+    console.error("Error in crafting:", error);
+  }
+}

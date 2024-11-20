@@ -22,6 +22,9 @@ body {
 
 button {
   position: absolute;
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
   border: 3px solid black;
   color: white;
   padding: 5px 10px;
@@ -119,18 +122,33 @@ button:hover {
 
 .chicken-button {
   background-color: rgb(99, 98, 98);
-  width: 45px;
+  width: 12px;
   height: 32px;
   top: 413px;
-  left: 390px;
+  left: 377px;
   text-align: center;
 }
 .mining-button {
   background-color: rgb(99, 98, 98);
-  width: 45px;
+  width: 12px;
   height: 32px;
   top: 413px;
-  left: 435px;
+  left: 408px;
+}
+.woodcutting-button {
+  background-color: rgb(99, 98, 98);
+  width: 12px;
+  height: 32px;
+  top: 413px;
+  left: 438px;
+}
+.store-button {
+  background-color: rgb(99, 98, 98);
+  width: 12px;
+  height: 32px;
+  top: 413px;
+  left: 468px;
+  
 }
 
 .info-box {
