@@ -17,14 +17,79 @@ document.getElementById("startLoopBtn").addEventListener("click", toggleStartLoo
 document.getElementById("chickBtn").addEventListener("click", movechick);
 document.getElementById("minBtn").addEventListener("click", movemin);
 
-let starLoopRunning = false; 
-let startLoopRunning = false; 
+let starLoopRunning = false; // Flagga för starLoop
+let startLoopRunning = false; // Flagga för startLoop
 
-let currentX = 0; 
-let currentY = 0; 
+let currentX = 0; // Startkoordinat för x
+let currentY = 0; // Startkoordinat för y
+let isInitialized = false;
 
+let cooldownTimer = 0;
+let cooldownInterval;
+
+function startCooldown (duration) {
+  cooldownTime = duration;
+
+  if (cooldownInterval){
+    clearInterval(cooldownInterval);
+  }
+  document.getElementById("cooldown").innerText = `Cooldown: ${cooldownTime}s`;
+
+  cooldownInterval = setInterval(() => {
+    cooldownTime -= 1;
+
+    if (cooldownTime > 0) {
+      document.getElementById("cooldown").innerText = `Cooldown: ${cooldownTime}s`;
+    } else {
+      document.getElementById("cooldown").innerText = "Cooldown: Ready!";
+      clearInterval(cooldownInterval);
+    }
+  }, 1000);
+  
+}
+
+function updateInfoBox() {
+  document.getElementById("characterName").innerText = `Name: ${character}`;
+  document.getElementById("coordinates").innerText = `Coordinates: (${currentX}, ${currentY})`;
+}
+
+async function mycharacter() {
+  const url = server + "/characters/" + character;
+  const options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: "Bearer " + token,
+    },
+  };
+
+  try {
+    const response = await fetch(url, options);
+    const data = await response.json();
+
+    // Sätt aktuella koordinater från servern
+    currentX = data.data.x;
+    currentY = data.data.y;
+    console.log(`Initialized Position: (${currentX}, ${currentY})`);
+
+    updateInfoBox();
+    // Sätt flaggan som true för att tillåta rörelse
+    isInitialized = true;
+  } catch (error) {
+    console.log("Error fetching character data:", error);
+  }
+}
+
+// Funktion för rörelse
 async function movement(deltaX, deltaY) {
-  // Uppdatera koordinaterna
+  // Kontrollera om karaktärens position har initierats
+  if (!isInitialized) {
+    console.log("Position not initialized yet. Please wait...");
+    return;
+  }
+
+  // Uppdatera koordinaterna baserat på rörelse
   currentX += deltaX;
   currentY += deltaY;
 
@@ -46,10 +111,18 @@ async function movement(deltaX, deltaY) {
     const response = await fetch(url, options);
     const { data } = await response.json();
     console.log("Movement result:", data);
+    
+    /*currentX = data.x
+    currentY = data.y*/
+
+    updateInfoBox();
   } catch (error) {
     console.error("Error in movement:", error);
   }
 }
+
+// Anropa mycharacter vid sidladdning för att initiera positionen
+mycharacter();
 
 async function fight() {
   const url = server + "/my/" + character + "/action/fight";
@@ -64,7 +137,7 @@ async function fight() {
 
   try {
     const response = await fetch(url, options);
-    const { data } = await response.json();
+    const data = await response.json();
     console.log(data);
   } catch (error) {
     console.log(error);
@@ -74,7 +147,7 @@ async function fight() {
 //fight();
 
 async function gathering() {
-  const url = server + "/my/" + character + "/action/gathering";
+  const url = server + '/my/' + character + '/action/gathering';
   const options = {
     method: "POST",
     headers: {
@@ -88,6 +161,17 @@ async function gathering() {
     const response = await fetch(url, options);
     const { data } = await response.json();
     console.log(data);
+
+    if (data.cooldown && data.cooldown.remaining_seconds) {
+      startCooldown(data.cooldown.remaining_seconds); // Använd remaining_seconds för nedräkning
+    } else {
+      console.warn("No cooldown information found in response.");
+    }
+
+    /*currentX = data.x
+    currentY = data.y
+
+    updateInfoBox();*/
   } catch (error) {
     console.log(error);
   }
@@ -112,6 +196,11 @@ async function rest() {
     const response = await fetch(url, options);
     const { data } = await response.json();
     console.log(data);
+
+    /*currentX = data.x
+    currentY = data.y
+
+    updateInfoBox();*/
   } catch (error) {
     console.log(error);
   }
@@ -138,6 +227,11 @@ async function craft() {
     const response = await fetch(url, options);
     const data = await response.json();
     console.log("Crafting result:", data);
+
+    /*currentX = data.x
+    currentY = data.y
+
+    updateInfoBox();*/
   } catch (error) {
     console.error("Error in crafting:", error);
   }
@@ -203,7 +297,6 @@ async function startLoop() {
   }
   console.log("Start Loop stopped.");
 }
-
 async function movechick() {
       
   const url = server + '/my/' + character +'/action/move';
@@ -221,13 +314,17 @@ async function movechick() {
     const response = await fetch(url, options);
     const { data } = await response.json();
     console.log(data);
+
+    currentX = data.character.x
+    currentY = data.character.y
+
+    updateInfoBox();
   } catch (error) {
     console.log(error);
   }
   }
   
 //movechick();
-
 async function movemin() {
       
   const url = server + '/my/' + character +'/action/move';
@@ -245,6 +342,11 @@ async function movemin() {
     const response = await fetch(url, options);
     const { data } = await response.json();
     console.log(data);
+
+    currentX = data.character.x
+    currentY = data.character.y
+
+    updateInfoBox();
   } catch (error) {
     console.log(error);
   }
